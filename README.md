@@ -4,7 +4,7 @@ Layman's tutorial to train and fit an SOM, explained in detail at: [algobeans.co
 <p>
 Iterative changes to SOM grid visualized for conceptual understanding:
   <br>
-<img src="https://annalyzin.files.wordpress.com/2017/10/som-iterateanimate.gif" width="500">
+<img src="SOM-iterateAnimate.gif?raw=true" width="500px">
 </p>
 
 
