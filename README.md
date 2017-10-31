@@ -43,6 +43,8 @@ Size of neuron labels is based on the number of corresponding data points it is 
 
 
 <p>
-Layman's tutorial to train and fit an SOM, explained in detail at: [algobeans.com/self-organizing-map](https://algobeans.com/self-organizing-map)
 </p>
+
+Layman's tutorial to train and fit an SOM, explained in detail at: [algobeans.com/self-organizing-map](https://algobeans.com/self-organizing-map)
+
 
