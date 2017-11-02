@@ -22,7 +22,7 @@ for (i in 1:length(col_label))  {
   label <- col_palette$col_label[i]
 
   # consolidate into dataset
-  rgb <- cbind.data.frame(r,g,b,label)
+  rgb <- cbind.data.frame(b,r,g,label)
   d <- rbind.data.frame(d,rgb)
 }
 
@@ -35,12 +35,21 @@ d <- d[-rgb_out,]
 d$hex <- rgb(d$r, d$g, d$b, max=255)
 
 # plot and save chosen colors
-chosen_dim <- c(2,3)
+chosen_dim <- c(1,3)
 plot(d[,chosen_dim],
-     ylab = "Blue Value",
-     xlab = "Green Value",
+     xlab = "Blue Value",
+     ylab = "Green Value",
      col=d$hex, pch=16,
-     xlim=c(130,255), ylim=c(0,150))
+     ylim=c(130,255), xlim=c(0,150))
+
+# plot in 3D
+library(scatterplot3d)
+scatterplot3d(d[,1:3],
+              color=d$hex, pch=20,
+              col.grid="grey",
+              xlab="Blue Value",
+              ylab="Red Value",
+              zlab="Green Value")
 
 #############################################
 # Data Analysis
@@ -50,7 +59,7 @@ plot(d[,chosen_dim],
 require(SOMbrero)
 
 # set number of iterations
-niter <- 500
+niter <- 200
 
 # train SOM
 grid_dim <- 8
@@ -75,8 +84,8 @@ for (s in 1:length(steps))  {
   plot(d[,chosen_dim], col=d$hex,
        pch=16, cex=.5,
        main=paste('Iteration ', steps[s]),
-       ylim=c(0,150),
-       xlim=c(130,255))
+       xlim=c(0,150),
+       ylim=c(130,255))
   points(iterate_map)
 
   for (pt in 1:npt) {
@@ -118,10 +127,10 @@ plot(my.som, what="prototypes", type="smooth.dist")
 
 # label neurons with freq of color occurrence
 # make dummy matrix
-dummy1 <- as.numeric(d$label==chosen_col[1])
-dummy2 <- as.numeric(d$label==chosen_col[2])
+dummy1 <- as.numeric(d$label==levels(d$label)[1])
+dummy2 <- as.numeric(d$label==levels(d$label)[2])
 dummy_labels <- cbind(dummy1, dummy2)
-colnames(dummy_labels) <- chosen_col
+colnames(dummy_labels) <- levels(d$label)
 # plot
 plot(my.som, what="add",
      type="words", variable=dummy_labels)
